@@ -1,8 +1,10 @@
 let displayValue = '';
 let operator = ''
 let resultValue = 0;
-let resultButtonPressedLast = false    //Changes functionally based on whether the `=` button was pressed last
-let operatorButtonPressedLast = false  //Prevents user from pressing multiple operator buttons in a row. Only the last operator is saved
+let resultButtonPressedLast = false;    //Changes functionally based on whether the `=` button was pressed last
+let operatorButtonPressedLast = false;  //Prevents user from pressing multiple operator buttons in a row. Only the last operator is saved
+let numberBuilding = false;  //True while a number is being built, becomes false after an operator or resultbutton
+let minusOperator = false;
 
 const display = document.getElementById('display');
 document.querySelectorAll('.number').forEach(item => {
@@ -23,9 +25,22 @@ function inputNumber(e) {
     displayValue = displayValue + value
     display.innerText = displayValue
     operatorButtonPressedLast = false;
+    numberBuilding = true;
 }
 
+function setMinusOperator(){
+    displayValue = displayValue + '-'
+    display.innerText = displayValue
+    minusOperator = true;
+}
+
+
 function inputOperator(e) {
+    if (e.target.value === '-' && (!numberBuilding)) {
+        setMinusOperator();
+        return;
+    }
+    
     operator = e.target.value;
     if(operatorButtonPressedLast) return;
     if (!resultButtonPressedLast) {
@@ -41,6 +56,8 @@ function inputOperator(e) {
     }
     displayValue = '';
     operatorButtonPressedLast = true;
+    minusOperator = false;
+    numberBuilding = false
 }
 
 function reset(){
@@ -49,19 +66,21 @@ function reset(){
     resultValue = 0;
     resultButtonPressedLast = false;
     operatorButtonPressedLast = false;
+    minusOperator = false;
+    numberBuilding = false
     display.innerText = 0
 }
 
 
 function calculateResult(e) {
-    if(!operator) return;
-    else if (operatorButtonPressedLast) display.innerText = 'Syntax error'
-    else {
+    if(!operator && !minusOperator) return;
+    else if (operatorButtonPressedLast) displayValue = resultValue
+
     resultValue = operate(operator, resultValue, parseInt(displayValue));
     display.innerText = resultValue;
     operatorButtonPressedLast = false;
     resultButtonPressedLast = true;
-    }
+    minusOperator = false;
 }
 
 function add(a, b) {
