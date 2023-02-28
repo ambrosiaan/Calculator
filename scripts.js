@@ -36,19 +36,23 @@ decimal.addEventListener('click', decimalPointEvent)
 window.addEventListener('keydown', buttonPressed)
 
 function buttonPressed(e){
-    let key = e.key
+    let key = e.key;
     if (key.match(/\d/)) {
-        inputNumber(key)
+        inputNumber(key);
     }
     else if (key === '.'){
-         decimalPoint(key)
+         decimalPoint(key);
     }
     else if (operators.includes(key)) 
-    {   console.log(key)
-        inputOperator(key)
+    {   console.log(key);
+        inputOperator(key);
     }
     else if (key === '='){
-        calculateResult()
+        calculateResult();
+    }
+    else if (key === "Backspace" || key === "Delete") 
+    {
+        deleteLastCharacter();
     }
 }
 
@@ -71,6 +75,10 @@ function inputNumber(value) {
     display.innerText = displayValue
     operatorButtonPressedLast = false;
     numberBuilding = true;
+}
+
+function deleteLastCharacter(){
+    console.log('deleted')
 }
 
 function setMinusOperator(){
