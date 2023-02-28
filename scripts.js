@@ -37,7 +37,7 @@ window.addEventListener('keydown', buttonPressed)
 
 function buttonPressed(e){
     let key = e.key;
-    if (key.match(/\d/)) {
+    if (key.match(/^[0-9]/)) {
         inputNumber(key);
     }
     else if (key === '.'){
