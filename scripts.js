@@ -5,6 +5,7 @@ let resultButtonPressedLast = false;    //Changes functionally based on whether 
 let operatorButtonPressedLast = false;  //Prevents user from pressing multiple operator buttons in a row. Only the last operator is saved
 let numberBuilding = false;  //True while a number is being built, becomes false after an operator or resultbutton
 let minusOperator = false;
+let decimalPointExists = false;
 
 const display = document.getElementById('display');
 document.querySelectorAll('.number').forEach(item => {
@@ -18,6 +19,9 @@ document.querySelectorAll('.operator').forEach(item => {
 document.querySelectorAll('.result').forEach(item => {
     item.addEventListener('click', calculateResult)
 })
+
+const decimal = document.querySelector('.decimal')
+decimal.addEventListener('click', decimalPoint)
 
 function inputNumber(e) {
     if (resultButtonPressedLast) reset();
@@ -35,6 +39,19 @@ function setMinusOperator(){
     minusOperator = true;
 }
 
+function decimalPoint(e) {
+    if (decimalPointExists) return;
+    inputNumber(e)
+    decimalPointExists = true;
+    decimal.disabled = true;
+}
+
+function stopNumberBuilding() {
+    numberBuilding = false
+    decimalPointExists = false;
+    decimal.disabled = false;
+    minusOperator = false;
+}
 
 function inputOperator(e) {
     if (e.target.value === '-' && (!numberBuilding)) {
@@ -43,8 +60,9 @@ function inputOperator(e) {
     }
     
     operator = e.target.value;
-    if(operatorButtonPressedLast) return;
-    if (!resultButtonPressedLast) {
+    if(operatorButtonPressedLast || displayValue === '') return;   //Avoids errors when user presses multiple operator buttons in a row
+
+    if (!resultButtonPressedLast) {     //Make intermediate calculations if user inputs multiple operations before pressing results
         if (resultValue === 0) {
             resultValue = parseFloat(displayValue);
         }
@@ -52,14 +70,11 @@ function inputOperator(e) {
             resultValue = operate(operator, resultValue, parseFloat(displayValue));
         }
     }
-    else {
-        resultButtonPressedLast = false;
-    }
     display.innerText = resultValue;
     displayValue = '';
     operatorButtonPressedLast = true;
-    minusOperator = false;
-    numberBuilding = false
+    resultButtonPressedLast = false;
+    stopNumberBuilding()
 }
 
 function reset(){
@@ -68,13 +83,12 @@ function reset(){
     resultValue = 0;
     resultButtonPressedLast = false;
     operatorButtonPressedLast = false;
-    minusOperator = false;
-    numberBuilding = false
+    stopNumberBuilding();
     display.innerText = 0
 }
 
 function calculateResult(e) {
-    if(!operator && !minusOperator) {
+    if(!operator && !minusOperator) {       // Converts the - operator into a a minus sign when needed 
         resultValue = parseFloat(displayValue)
         resultButtonPressedLast = true;
         return;
@@ -85,7 +99,7 @@ function calculateResult(e) {
     display.innerText = resultValue;
     operatorButtonPressedLast = false;
     resultButtonPressedLast = true;
-    minusOperator = false;
+    stopNumberBuilding();
 }
 
 function add(a, b) {

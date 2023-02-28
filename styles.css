@@ -1,7 +1,7 @@
 body {
     display: flex;
     justify-content: center;
-    background-color: azure;
+    background-color: rgb(213, 247, 247);
     font-family: -apple-system, system-ui, system-ui, "Segoe UI", Roboto, "Helvetica Neue", "Fira Sans", Ubuntu, Oxygen, "Oxygen Sans", Cantarell, "Droid Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Lucida Grande", Helvetica, Arial, sans-serif;
     font-size: 16px;
     font-weight: 600;
@@ -13,7 +13,7 @@ body {
     align-items: center;
     justify-content: center;
     padding: 10px;
-    margin: 10px;
+    margin: 20px;
     background-color: rgb(43, 54, 119);
     width: 250px;
     border-radius: 40px;
