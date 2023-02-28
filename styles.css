@@ -28,7 +28,7 @@ body {
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    align-content:space-around;
+    align-content: end;
 }
 
 button {
@@ -44,4 +44,8 @@ button {
 
 button, #display {
     background-color: lightgray;
+}
+
+#clear {
+    width: 100px;
 }
