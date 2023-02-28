@@ -36,18 +36,8 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     gap: 10px;
+    padding-bottom: 10px;
 }
-
-/* button {
-    border-color:white;
-    padding: 20px;
-    margin: 5px;
-    width: 20px;
-    height: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-} */
 
 .clear {
     width: 105px;

@@ -46,10 +46,10 @@ function inputOperator(e) {
     if(operatorButtonPressedLast) return;
     if (!resultButtonPressedLast) {
         if (resultValue === 0) {
-            resultValue = parseInt('0' + displayValue);
+            resultValue = parseFloat(displayValue);
         }
         else {
-            resultValue = operate(operator, resultValue, parseInt(displayValue));
+            resultValue = operate(operator, resultValue, parseFloat(displayValue));
         }
     }
     else {
@@ -75,13 +75,13 @@ function reset(){
 
 function calculateResult(e) {
     if(!operator && !minusOperator) {
-        resultValue = parseInt(displayValue)
+        resultValue = parseFloat(displayValue)
         resultButtonPressedLast = true;
         return;
     }
     else if (operatorButtonPressedLast) displayValue = resultValue
 
-    resultValue = operate(operator, resultValue, parseInt(displayValue));
+    resultValue = operate(operator, resultValue, parseFloat(displayValue));
     display.innerText = resultValue;
     operatorButtonPressedLast = false;
     resultButtonPressedLast = true;
