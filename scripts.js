@@ -13,7 +13,8 @@ const operators = [
     '/',
     '^',
     '*',
-    '%'
+    '%',
+    '*'
 ]
 
 
@@ -47,7 +48,7 @@ function buttonPressed(e){
     {   console.log(key);
         inputOperator(key);
     }
-    else if (key === '='){
+    else if (key === '=' || key === 'Enter'){
         calculateResult();
     }
     else if (key === "Backspace" || key === "Delete") 
@@ -165,7 +166,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    if (b === 0) return "lmao can not divide by 0"
+    if (b === 0) return "can not divide by 0 lmao"
     return a / b
 }
 
@@ -184,6 +185,7 @@ function operate(operator, a, b) {
         case '-':
             return subtract(a, b)
         case 'x':
+        case '*':
         case '*':
             return multiply(a, b)
         case '/':
