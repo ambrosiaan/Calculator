@@ -18,9 +18,7 @@ document.querySelectorAll('.result').forEach(item => {
 
 function inputNumber(e) {
     if (resultButtonPressedLast) {
-        displayValue = '';
-        resultValue = 0;
-        resultButtonPressedLast = false
+        reset();
     }
     let value = e.target.value
     displayValue = displayValue + value
@@ -28,25 +26,34 @@ function inputNumber(e) {
 }
 
 function inputOperator(e) {
-    operator = e.target.value
+    operator = e.target.value;
     if (!resultButtonPressedLast) {
         if (resultValue === 0) {
-            resultValue = parseInt(displayValue)
+            resultValue = parseInt(displayValue);
         }
         else {
-            resultValue = operate(operator, resultValue, parseInt(displayValue))
+            resultValue = operate(operator, resultValue, parseInt(displayValue));
         }
     }
     else {
-        resultButtonPressedLast = false
+        resultButtonPressedLast = false;
     }
     displayValue = '';
 }
 
+function reset(){
+    displayValue = '';
+    resultValue = 0;
+    resultButtonPressedLast = false;
+    display.innerText = 0
+}
+
+
 function calculateResult(e) {
-    resultValue = operate(operator, resultValue, parseInt(displayValue))
-    display.innerText = resultValue
-    resultButtonPressedLast = true
+    if(!operator) return;
+    resultValue = operate(operator, resultValue, parseInt(displayValue));
+    display.innerText = resultValue;
+    resultButtonPressedLast = true;
 }
 
 function add(a, b) {
