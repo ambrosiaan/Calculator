@@ -11,6 +11,9 @@
     <div id="calculator">
         <div id="display">0</div>
         <div id="buttons">
+            <button onclick="reset()" id="clear" class="clear top-row">AC</button>
+            <button value="%" class="operator top-row">%</button>
+            <button value="^" class="operator top-row">^</button>
             <button value="7" class="number">7</button>
             <button value="8" class="number">8</button>
             <button value="9" class="number">9</button>
@@ -27,7 +30,6 @@
             <button value="." class="decimal">.</button>
             <button value="=" class="result">=</button> 
             <button value="-" class="operator">-</button> 
-            <button onclick="reset()" id="clear" class="clear">Clear</button>
         </div>
     </div>
 </body>

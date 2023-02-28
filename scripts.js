@@ -54,6 +54,7 @@ function inputOperator(e) {
     else {
         resultButtonPressedLast = false;
     }
+    display.innerText = resultValue;
     displayValue = '';
     operatorButtonPressedLast = true;
     minusOperator = false;
@@ -71,9 +72,12 @@ function reset(){
     display.innerText = 0
 }
 
-
 function calculateResult(e) {
-    if(!operator && !minusOperator) return;
+    if(!operator && !minusOperator) {
+        resultValue = parseInt(displayValue)
+        resultButtonPressedLast = true;
+        return;
+    }
     else if (operatorButtonPressedLast) displayValue = resultValue
 
     resultValue = operate(operator, resultValue, parseInt(displayValue));
