@@ -66,6 +66,7 @@ function decimalPointEvent(e){
    
 function inputNumber(value) {
     if (resultButtonPressedLast) reset();
+    if (displayValue.length >= 15) return;
     displayValue = displayValue + value
     display.innerText = displayValue
     operatorButtonPressedLast = false;
@@ -98,7 +99,6 @@ function inputOperator(value) {
         setMinusOperator();
         return;
     }
-    
     operator = value
     if(operatorButtonPressedLast || displayValue === '' || displayValue === '.') return;   //Avoids errors when user presses multiple operator buttons in a row
 
