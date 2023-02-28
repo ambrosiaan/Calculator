@@ -23,6 +23,7 @@ body {
     width: 210px;
     height: 55px;
     margin: 20px;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;

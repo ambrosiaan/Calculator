@@ -29,6 +29,7 @@ function inputNumber(e) {
 }
 
 function setMinusOperator(){
+    if(minusOperator) return;
     displayValue = displayValue + '-'
     display.innerText = displayValue
     minusOperator = true;
