@@ -6,14 +6,24 @@ let operatorButtonPressedLast = false;  //Prevents user from pressing multiple o
 let numberBuilding = false;  //True while a number is being built, becomes false after an operator or resultbutton
 let minusOperator = false;
 let decimalPointExists = false;
+const operators = [
+    '+',
+    '-',
+    'x',
+    '/',
+    '^',
+    '*',
+    '%'
+]
+
 
 const display = document.getElementById('display');
 document.querySelectorAll('.number').forEach(item => {
-    item.addEventListener('click', inputNumber)
+    item.addEventListener('click', inputNumberEvent)
 })
 
 document.querySelectorAll('.operator').forEach(item => {
-    item.addEventListener('click', inputOperator)
+    item.addEventListener('click', inputOperatorEvent)
 })
 
 document.querySelectorAll('.result').forEach(item => {
@@ -21,11 +31,41 @@ document.querySelectorAll('.result').forEach(item => {
 })
 
 const decimal = document.querySelector('.decimal')
-decimal.addEventListener('click', decimalPoint)
+decimal.addEventListener('click', decimalPointEvent)
 
-function inputNumber(e) {
+window.addEventListener('keydown', buttonPressed)
+
+function buttonPressed(e){
+    let key = e.key
+    if (key.match(/\d/)) {
+        inputNumber(key)
+    }
+    else if (key === '.'){
+         decimalPoint(key)
+    }
+    else if (operators.includes(key)) 
+    {   console.log(key)
+        inputOperator(key)
+    }
+    else if (key === '='){
+        calculateResult()
+    }
+}
+
+function inputNumberEvent(e){
+    inputNumber(e.target.value)
+}
+
+function inputOperatorEvent(e){
+    inputOperator(e.target.value)
+}
+
+function decimalPointEvent(e){
+    decimalPoint(e.target.value) 
+}
+   
+function inputNumber(value) {
     if (resultButtonPressedLast) reset();
-    let value = e.target.value
     displayValue = displayValue + value
     display.innerText = displayValue
     operatorButtonPressedLast = false;
@@ -39,9 +79,9 @@ function setMinusOperator(){
     minusOperator = true;
 }
 
-function decimalPoint(e) {
+function decimalPoint(value) {
     if (decimalPointExists) return;
-    inputNumber(e)
+    inputNumber(value)
     decimalPointExists = true;
     decimal.disabled = true;
 }
@@ -53,13 +93,13 @@ function stopNumberBuilding() {
     minusOperator = false;
 }
 
-function inputOperator(e) {
-    if (e.target.value === '-' && (!numberBuilding) && !resultButtonPressedLast) {
+function inputOperator(value) {
+    if (value === '-' && (!numberBuilding) && !resultButtonPressedLast) {
         setMinusOperator();
         return;
     }
     
-    operator = e.target.value;
+    operator = value
     if(operatorButtonPressedLast || displayValue === '' || displayValue === '.') return;   //Avoids errors when user presses multiple operator buttons in a row
 
     if (!resultButtonPressedLast) {     //Make intermediate calculations if user inputs multiple operations before pressing results
@@ -87,7 +127,7 @@ function reset(){
     display.innerText = 0
 }
 
-function calculateResult(e) {
+function calculateResult() {
     if(!operator && !minusOperator) {       // Converts the - operator into a a minus sign when needed 
         resultValue = parseFloat(displayValue)
         resultButtonPressedLast = true;
