@@ -119,6 +119,7 @@ function divide(a, b) {
 }
 
 function modulo(a,b){
+    if (b === 0) return "lmao can not divide by 0"
     return a % b
 }
 
