@@ -79,6 +79,8 @@ function inputNumber(value) {
 
 function deleteLastCharacter(){
     console.log('deleted')
+    displayValue = displayValue.substring(0, displayValue.length - 1);
+    display.innerText = displayValue
 }
 
 function setMinusOperator(){
