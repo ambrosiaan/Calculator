@@ -104,6 +104,14 @@ function divide(a, b) {
     return a / b
 }
 
+function modulo(a,b){
+    return a % b
+}
+
+function exponent(a,b){
+    return a ** b
+}
+
 function operate(operator, a, b) {
     switch (operator) {
         case '+':
@@ -115,6 +123,10 @@ function operate(operator, a, b) {
             return multiply(a, b)
         case '/':
             return divide(a, b)
+        case '%':
+            return modulo(a, b)
+        case '^':
+            return exponent(a, b)
         default:
             throw "Wrong operator input"
     }
