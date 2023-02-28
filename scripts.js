@@ -1,7 +1,8 @@
 let displayValue = '';
 let operator = ''
-resultValue = 0;
+let resultValue = 0;
 let resultButtonPressedLast = false    //Changes functionally based on whether the `=` button was pressed last
+let operatorButtonPressedLast = false  //Prevents user from pressing multiple operator buttons in a row. Only the last operator is saved
 
 const display = document.getElementById('display');
 document.querySelectorAll('.number').forEach(item => {
@@ -17,19 +18,19 @@ document.querySelectorAll('.result').forEach(item => {
 })
 
 function inputNumber(e) {
-    if (resultButtonPressedLast) {
-        reset();
-    }
+    if (resultButtonPressedLast) reset();
     let value = e.target.value
     displayValue = displayValue + value
     display.innerText = displayValue
+    operatorButtonPressedLast = false;
 }
 
 function inputOperator(e) {
     operator = e.target.value;
+    if(operatorButtonPressedLast) return;
     if (!resultButtonPressedLast) {
         if (resultValue === 0) {
-            resultValue = parseInt(displayValue);
+            resultValue = parseInt('0' + displayValue);
         }
         else {
             resultValue = operate(operator, resultValue, parseInt(displayValue));
@@ -39,21 +40,28 @@ function inputOperator(e) {
         resultButtonPressedLast = false;
     }
     displayValue = '';
+    operatorButtonPressedLast = true;
 }
 
 function reset(){
     displayValue = '';
+    operator = ''
     resultValue = 0;
     resultButtonPressedLast = false;
+    operatorButtonPressedLast = false;
     display.innerText = 0
 }
 
 
 function calculateResult(e) {
     if(!operator) return;
+    else if (operatorButtonPressedLast) display.innerText = 'Syntax error'
+    else {
     resultValue = operate(operator, resultValue, parseInt(displayValue));
     display.innerText = resultValue;
+    operatorButtonPressedLast = false;
     resultButtonPressedLast = true;
+    }
 }
 
 function add(a, b) {
