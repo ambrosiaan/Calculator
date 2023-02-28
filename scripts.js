@@ -54,13 +54,13 @@ function stopNumberBuilding() {
 }
 
 function inputOperator(e) {
-    if (e.target.value === '-' && (!numberBuilding)) {
+    if (e.target.value === '-' && (!numberBuilding) && !resultButtonPressedLast) {
         setMinusOperator();
         return;
     }
     
     operator = e.target.value;
-    if(operatorButtonPressedLast || displayValue === '') return;   //Avoids errors when user presses multiple operator buttons in a row
+    if(operatorButtonPressedLast || displayValue === '' || displayValue === '.') return;   //Avoids errors when user presses multiple operator buttons in a row
 
     if (!resultButtonPressedLast) {     //Make intermediate calculations if user inputs multiple operations before pressing results
         if (resultValue === 0) {
@@ -115,11 +115,11 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
+    if (b === 0) return "lmao can not divide by 0"
     return a / b
 }
 
 function modulo(a,b){
-    if (b === 0) return "lmao can not divide by 0"
     return a % b
 }
 
