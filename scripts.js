@@ -1,3 +1,18 @@
+let displayValue = '';
+
+const display = document.getElementById('display');
+document.querySelectorAll('.number').forEach(item => {
+    item.addEventListener('click', inputNumber)
+})
+
+function inputNumber(e) {
+    let value = e.target.value
+    console.log(value)
+    displayValue = displayValue + value
+    display.innerText = displayValue 
+}
+
+
 function add(a,b) {
     return a + b
 }
