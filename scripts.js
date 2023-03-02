@@ -110,8 +110,11 @@ function inputOperator(value) {
         setMinusOperator();
         return;
     }
-    operator = value
-    if(operatorButtonPressedLast || displayValue === '' || displayValue === '.') return;   //Avoids errors when user presses multiple operator buttons in a row
+
+    if(operatorButtonPressedLast || displayValue === '' || displayValue === '.'){
+        operator = value 
+        return; //Avoids errors when user presses multiple operator buttons in a row
+    }  
 
     if (!resultButtonPressedLast) {     //Make intermediate calculations if user inputs multiple operations before pressing results
         if (resultValue === 0) {
@@ -121,6 +124,7 @@ function inputOperator(value) {
             resultValue = operate(operator, resultValue, parseFloat(displayValue));
         }
     }
+    operator = value
     display.innerText = resultValue;
     displayValue = '';
     operatorButtonPressedLast = true;
