@@ -170,7 +170,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    if (b === 0) return "can not divide by 0 lmao"
+    if (b === 0) return "Can not divide by 0 lol"
     return a / b
 }
 
